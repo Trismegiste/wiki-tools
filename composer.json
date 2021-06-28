@@ -1,0 +1,20 @@
+{
+    "name": "flo/wiki-tools",
+    "description": "Tools for MediaWiki",
+    "type": "project",
+    "require": {
+        "symfony/console": "5.4.x-dev",
+        "symfony/http-client": "5.4.x-dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9.5.x-dev"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Trismegiste",
+            "email": "flo@trismegiste.net"
+        }
+    ],
+    "minimum-stability": "dev"
+}
