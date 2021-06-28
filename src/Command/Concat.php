@@ -3,25 +3,49 @@
 namespace App\Command;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\HttpClient\HttpClient;
 
 class Concat extends Command
 {
 
-    protected static $defaultName = 'wiki:list';
+    protected static $defaultName = 'category:dump';
 
     protected function configure()
     {
-        $this->setDescription('List a cat');
+        $this->setDescription('Dumps and agregates a category')
+            ->addArgument('host', InputArgument::REQUIRED)
+            ->addArgument('category', InputArgument::REQUIRED)
+            ->addOption('limit', null, InputOption::VALUE_REQUIRED, 'How many', 50);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $client = new \Symfony\Component\HttpClient\HttpClient();
+        $host = 'https://' . $input->getArgument('host') . '/fr/api.php';
+        $category = $input->getArgument('category');
 
+        $client = HttpClient::create();
+        $response = $client->request('GET', $host, ['query' => [
+                'action' => 'query',
+                'format' => 'json',
+                'list' => 'categorymembers',
+                'cmtitle' => 'Catégorie:' . $category,
+                'cmlimit' => $input->getOption('limit')
+        ]]);
+
+        $result = json_decode($response->getContent());
+        $page = $result->query->categorymembers;
+        foreach ($page as $item) {
+            $output->writeln($item->title);
+        }
+        
+        
+
+        // $response = $client->request('GET', self::$host . '/fr/api.php?action=parse&format=json&pageid=22&prop=text&disablelimitreport=1&disableeditsection=1&disabletoc=1');
         return 0;
     }
 
-// /fr/api.php?action=query&format=json&list=categorymembers&continue=-%7C%7C&cmtitle=Cat%C3%A9gorie%3AComp%C3%A9tence&cmcontinue=page%7C4e415649474154494f4e%7C421&cmlimit=30
 }
