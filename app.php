@@ -9,6 +9,6 @@ use Symfony\Component\Console\Application;
 $application = new Application();
 
 // register commands
-$application->add(new App\Command\Concat());
+$application->add(new App\Command\CategoryConcat());
 
 $application->run();

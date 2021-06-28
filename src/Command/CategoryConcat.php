@@ -9,9 +9,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpClient\HttpClient;
 
-class Concat extends Command
+class CategoryConcat extends Command
 {
 
     protected static $defaultName = 'category:dump';
@@ -21,24 +22,35 @@ class Concat extends Command
         $this->setDescription('Dumps and agregates a category')
             ->addArgument('host', InputArgument::REQUIRED)
             ->addArgument('category', InputArgument::REQUIRED)
+            ->addArgument('html', InputArgument::REQUIRED)
             ->addOption('limit', null, InputOption::VALUE_REQUIRED, 'How many', 50);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $repository = new MediaWiki(HttpClient::create(), 'https://' . $input->getArgument('host') . '/fr/api.php');
+        $repository = new MediaWiki(HttpClient::create(), $input->getArgument('host'));
         $category = $input->getArgument('category');
         $io = new SymfonyStyle($input, $output);
+        $target = $input->getArgument('html');
+        $filesystem = new Filesystem();
 
         $io->title("Accessing $category Category...");
         $page = $repository->searchPageFromCategory($category, $input->getOption('limit'));
 
         $io->success("Found " . \count($page) . ' pages');
+        $io->progressStart(\count($page));
         foreach ($page as $item) {
-            $output->writeln($item->title);
+            $title = $item->title;
+            $content = $repository->getPage($item->pageid);
+            $filesystem->appendToFile($target, "<h1>$title</h1>\n");
+            $filesystem->appendToFile($target, $content);
+            $io->progressAdvance();
+            usleep(100000);
         }
+        $io->progressFinish();
 
-        // $response = $client->request('GET', self::$host . '/fr/api.php?action=parse&format=json&pageid=22&prop=text&disablelimitreport=1&disableeditsection=1&disabletoc=1');
+        $io->success("$target generated");
+
         return 0;
     }
 
