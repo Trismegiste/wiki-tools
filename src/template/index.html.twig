@@ -85,6 +85,12 @@
             /* link */
             a {
                 text-decoration: none;
+                color: #c60000;
+            }
+            
+            /* table */
+            table.article-table th {
+                border-bottom: black solid thin;
             }
 
         </style>       
@@ -94,24 +100,40 @@
         {{ dump_page('Pitch Eclipse Phase')}}
         {{ dump_page('Création de PJ')}}
         <section>
+            <h1 class="h0">Historiques</h1>
+            {{ dump_category('Historique', 30) }}
+        </section>
+        <section>
+            <h1 class="h0">Factions</h1>
+            {{ dump_category('Faction', 40) }}
+        </section>        
+        <section>
             <h1 class="h0">Handicaps</h1>
-            {{ dump_category('Handicap', 3) }}
+            {{ dump_category('Handicap', 80) }}
         </section>
         <section>
             <h1 class="h0">Compétences</h1>
-            {{ dump_category('Compétence', 3) }}
+            {{ dump_category('Compétence', 30) }}
         </section>
         <section>
             <h1 class="h0">Atouts</h1>
-            {{ dump_category('Atout', 3) }}
+            {{ dump_category('Atout', 120) }}
         </section>
         <section>
             <h1 class="h0">Biomorphes</h1>
-            {{ dump_category('Biomorphe', 3) }}        
+            {{ dump_category('Biomorphe', 30) }}        
+        </section>
+        <section>
+            <h1 class="h0">Cosses</h1>
+            {{ dump_category('Cosse', 10) }}        
+        </section>
+        <section>
+            <h1 class="h0">Synthomorphes</h1>
+            {{ dump_category('Synthomorphe', 20) }}        
         </section>
         <section>
             <h1 class="h0">Nouvelles mécaniques</h1>
-            {{ dump_category('Règle', 3) }}        
+            {{ dump_category('Règle', 30) }}        
         </section>        
     </body>
 </html>
