@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Service\MediaWiki;
+use App\Twig\MediaWikiExtension;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,7 +13,6 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpClient\HttpClient;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use Twig\TwigFunction;
 
 class DocumentRender extends Command
 {
@@ -35,7 +35,7 @@ class DocumentRender extends Command
 
         $loader = new FilesystemLoader(__DIR__ . '/../template');
         $twig = new Environment($loader);
-        $twig->addExtension(new \App\Twig\MediaWikiExtension($repository));
+        $twig->addExtension(new MediaWikiExtension($repository));
 
         $filesystem->dumpFile($target, $twig->render('index.html.twig'));
 

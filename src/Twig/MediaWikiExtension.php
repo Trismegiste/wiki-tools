@@ -26,9 +26,9 @@ class MediaWikiExtension extends AbstractExtension
         ];
     }
 
-    public function dumpCategory(string $category): string
+    public function dumpCategory(string $category, int $limit = 30): string
     {
-        $page = $this->api->searchPageFromCategory($category, 50);
+        $page = $this->api->searchPageFromCategory($category, $limit);
 
         $dump = '';
         foreach ($page as $item) {
