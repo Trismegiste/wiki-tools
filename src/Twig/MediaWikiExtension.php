@@ -30,7 +30,7 @@ class MediaWikiExtension extends AbstractExtension
     {
         $page = $this->api->searchPageFromCategory($category, $limit);
 
-        $dump = '';
+        $dump = '<article>' . $this->api->getPageByName("Catégorie:$category") . "</article>\n";
         foreach ($page as $item) {
             $title = $item->title;
             $content = $this->api->getPage($item->pageid);
