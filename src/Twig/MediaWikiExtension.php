@@ -34,10 +34,10 @@ class MediaWikiExtension extends AbstractExtension
         foreach ($page as $item) {
             $title = $item->title;
             $content = $this->api->getPage($item->pageid);
-            $dump .= "<section>\n";
+            $dump .= "<article>\n";
             $dump .= "<h1>$title</h1>\n";
             $dump .= $content;
-            $dump .= "</section>\n";
+            $dump .= "</article>\n";
             usleep(100000);
         }
 
@@ -48,7 +48,7 @@ class MediaWikiExtension extends AbstractExtension
     {
         $content = $this->api->getPageByName($title);
 
-        return "<section><h1>$title</h1>\n$content</section>\n";
+        return "<article><h1>$title</h1>\n$content</article>\n";
     }
 
 }

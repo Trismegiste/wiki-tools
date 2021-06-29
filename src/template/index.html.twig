@@ -1,27 +1,49 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
+
             /* title */
+            h1 {
+                padding-top: 1em;
+                font-size: 1.4em;
+                border-bottom: black solid thin;
+            }
+
+            h2 {
+                font-size: 1.2em;
+            }
+
             h1.big-title {
                 font-size: 3em;
+                border: none;
+                text-align: center;
+                margin: 0;
+                padding: 0.6em;
+                color: white;
+                background-color: #c60000;
+                font-weight: lighter;
             }
 
             h1.h0 {
-                font-size: 2.5em;
+                font-size: 1.8em;
+                color: #c60000;
+                border-bottom: #c60000 solid thick;                
             }
 
             /* box align */
             aside {
                 float: right;
             }
-            section {
+            section, article {
                 clear: both;
             }
 
-            /* style inide box */
+            /* style inside box */
             .pi-europa.portable-infobox {
                 width: 300px;
+                background-color: #f0f0f0;                
             }
             .pi-item {
                 display: flex;
@@ -39,7 +61,7 @@
             }
             .pi-title {
                 text-align: center;
-                background-color: lightgrey;
+                background-color: #ffd0d0;
                 margin: 0;
                 padding: 0.5em;
                 display: inherit;
@@ -47,10 +69,23 @@
             .portable-infobox {
                 margin-left: 2em;
             }
-            .pi-data-value {
+            .pi-data-value, .pi-data-value > p {
                 vertical-align: baseline;
                 margin: 0;
             }     
+
+            /* image */
+            figure.tright {
+                float: right;
+            }
+            figure.pi-image {
+                padding: 0;
+            }
+
+            /* link */
+            a {
+                text-decoration: none;
+            }
 
         </style>       
     </head>
@@ -59,7 +94,7 @@
         {{ dump_page('Pitch Eclipse Phase')}}
         {{ dump_page('Création de PJ')}}
         <section>
-            <h1 class="h0">Handicap</h1>
+            <h1 class="h0">Handicaps</h1>
             {{ dump_category('Handicap', 3) }}
         </section>
         <section>
@@ -74,5 +109,9 @@
             <h1 class="h0">Biomorphes</h1>
             {{ dump_category('Biomorphe', 3) }}        
         </section>
+        <section>
+            <h1 class="h0">Nouvelles mécaniques</h1>
+            {{ dump_category('Règle', 3) }}        
+        </section>        
     </body>
 </html>
