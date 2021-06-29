@@ -1,6 +1,78 @@
-{# empty Twig template #}
-<h1>Eclipse Savage</h1>
-{{ dump_page('Pitch Eclipse Phase')}}
-{{ dump_page('Création de PJ')}}
-<h1>Compétences</h1>
-{{ dump_category('Compétence', 30) }}
+<html>
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous"/>
+        <style>
+            /* title */
+            h1.big-title {
+                font-size: 3em;
+            }
+
+            h1.h0 {
+                font-size: 2.5em;
+            }
+
+            /* box align */
+            aside {
+                float: right;
+            }
+            section {
+                clear: both;
+            }
+
+            /* style inide box */
+            .pi-europa.portable-infobox {
+                width: 300px;
+            }
+            .pi-item {
+                display: flex;
+                flex-direction: row;
+                padding: 0.5em;
+            }
+            .pi-data-label {
+                flex-basis: 160px;   
+                margin: 0;
+            }
+            figure {
+                display: block;
+                text-align: center;
+                margin: 0;
+            }
+            .pi-title {
+                text-align: center;
+                background-color: lightgrey;
+                margin: 0;
+                padding: 0.5em;
+                display: inherit;
+            }
+            .portable-infobox {
+                margin-left: 2em;
+            }
+            .pi-data-value {
+                vertical-align: baseline;
+                margin: 0;
+            }     
+
+        </style>       
+    </head>
+    <body>
+        <h1 class="big-title">Eclipse Savage</h1>
+        {{ dump_page('Pitch Eclipse Phase')}}
+        {{ dump_page('Création de PJ')}}
+        <section>
+            <h1 class="h0">Handicap</h1>
+            {{ dump_category('Handicap', 3) }}
+        </section>
+        <section>
+            <h1 class="h0">Compétences</h1>
+            {{ dump_category('Compétence', 3) }}
+        </section>
+        <section>
+            <h1 class="h0">Atouts</h1>
+            {{ dump_category('Atout', 3) }}
+        </section>
+        <section>
+            <h1 class="h0">Biomorphes</h1>
+            {{ dump_category('Biomorphe', 3) }}        
+        </section>
+    </body>
+</html>
