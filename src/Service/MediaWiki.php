@@ -38,12 +38,32 @@ class MediaWiki
         return $result->query->categorymembers;
     }
 
-    public function getPage(int $id)
+    public function getPage(int $id): string
     {
         $response = $this->client->request('GET', $this->host, ['query' => [
                 'action' => 'parse',
                 'format' => 'json',
                 'pageid' => $id,
+                'prop' => 'text',
+                'disablelimitreport' => 1,
+                'disableeditsection' => 1,
+                'disabletoc' => 1
+        ]]);
+
+        if ($response->getStatusCode() !== 200) {
+            throw new \RuntimeException('API returned ' . $response->getStatusCode() . ' status code');
+        }
+        $result = json_decode($response->getContent());
+
+        return $result->parse->text->{'*'};
+    }
+
+    public function getPageByName(string $name): string
+    {
+        $response = $this->client->request('GET', $this->host, ['query' => [
+                'action' => 'parse',
+                'format' => 'json',
+                'page' => $name,
                 'prop' => 'text',
                 'disablelimitreport' => 1,
                 'disableeditsection' => 1,

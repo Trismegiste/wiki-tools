@@ -21,7 +21,7 @@ class MediaWikiExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new \Twig\TwigFunction('dump_page', [$this, 'dumpPage']),
+            new \Twig\TwigFunction('dump_page', [$this, 'dumpPage'], ['is_safe' => ['html']]),
             new \Twig\TwigFunction('dump_category', [$this, 'dumpCategory'], ['is_safe' => ['html']])
         ];
     }
@@ -40,6 +40,13 @@ class MediaWikiExtension extends AbstractExtension
         }
 
         return $dump;
+    }
+
+    public function dumpPage(string $title): string
+    {
+        $content = $this->api->getPageByName($title);
+
+        return "<h1>$title</h1>\n$content\n";
     }
 
 }
