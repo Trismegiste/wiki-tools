@@ -1,5 +1,6 @@
 <html>
     <head>
+        <title>Eclipse Savage</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous"/>
@@ -36,7 +37,7 @@
             h3 {
                 font-weight: normal;
                 font-style: italic;
-                margin-bottom: -0.5em;
+                margin-bottom: -0.4em;
             }
 
             /* box align */
@@ -100,6 +101,10 @@
             /* table */
             table.article-table th {
                 border-bottom: black solid thin;
+                padding: 0.1em;
+            }
+            table.article-table td {
+                padding: 0.1em;                
             }
 
             /* bandeau en cours */
@@ -133,6 +138,20 @@
 
             .lien-article-detail img {
                 margin-right: 0.3em;
+            }         
+
+            /* Responsive design */
+            .flexwrapper {
+                display: flex;    
+                width: 100%;	
+            }
+
+            .flexwrapper div {
+                flex-basis: 100%;
+            }
+
+            .centered {
+                text-align: center;
             }            
         </style>       
     </head>
@@ -148,6 +167,10 @@
             <h1 class="h0">Factions</h1>
             {{ dump_category('Faction', 40) }}
         </section>        
+        <section>
+            <h1 class="h0">Motivations</h1>
+            {{ dump_category('Motivation', 10) }}
+        </section>            
         <section>
             <h1 class="h0">Handicaps</h1>
             {{ dump_category('Handicap', 80) }}
@@ -173,9 +196,17 @@
             {{ dump_category('Synthomorphe', 20) }}        
         </section>
         <section>
+            <h1 class="h0">Infomorphes</h1>
+            {{ dump_category('Infomorphe', 10) }}        
+        </section>
+        <section>
             <h1 class="h0">Nouvelles mécaniques</h1>
             {{ dump_category('Règle', 30) }}        
-        </section>       
+        </section>     
+        <h1 class="h0">Touches finales</h1>    
+        Il reste à choisir les Traits de votre Muse.
+        {{ dump_page('IA limitée')}}        
+        {{ dump_page('Muse')}}        
         <script>
             var img = document.getElementsByClassName('lazyload')
             for (var i = 0; i < img.length; i++) {
