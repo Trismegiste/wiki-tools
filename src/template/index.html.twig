@@ -152,7 +152,16 @@
 
             .centered {
                 text-align: center;
-            }            
+            }        
+
+            @media print {
+                h1.h0 {
+                    break-before: always;
+                }
+                article {
+                    break-inside: avoid;
+                }
+            }     
         </style>       
     </head>
     <body>
