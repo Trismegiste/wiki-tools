@@ -10,6 +10,7 @@ $application = new Application();
 
 // register commands
 $application->add(new App\Command\CategoryConcat());
+$application->add(new App\Command\CategoryList());
 $application->add(new App\Command\DocumentRender());
 
 $application->run();

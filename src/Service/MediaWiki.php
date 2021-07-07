@@ -21,61 +21,56 @@ class MediaWiki
 
     public function searchPageFromCategory(string $cat, int $lim = 20): array
     {
-        $response = $this->client->request('GET', $this->host, ['query' => [
-                'action' => 'query',
-                'format' => 'json',
-                'list' => 'categorymembers',
-                'cmtitle' => 'Catégorie:' . $cat,
-                'cmlimit' => $lim
-        ]]);
+        $response = $this->sendQuery([
+            'action' => 'query',
+            'format' => 'json',
+            'list' => 'categorymembers',
+            'cmtitle' => 'Catégorie:' . $cat,
+            'cmlimit' => $lim
+        ]);
 
-        if ($response->getStatusCode() !== 200) {
-            throw new \RuntimeException('API returned ' . $response->getStatusCode() . ' status code');
-        }
-        $result = json_decode($response->getContent());
-
-
-        return $result->query->categorymembers;
+        return $response->query->categorymembers;
     }
 
     public function getPage(int $id): string
     {
-        $response = $this->client->request('GET', $this->host, ['query' => [
-                'action' => 'parse',
-                'format' => 'json',
-                'pageid' => $id,
-                'prop' => 'text',
-                'disablelimitreport' => 1,
-                'disableeditsection' => 1,
-                'disabletoc' => 1
-        ]]);
+        $response = $this->sendQuery([
+            'action' => 'parse',
+            'format' => 'json',
+            'pageid' => $id,
+            'prop' => 'text',
+            'disablelimitreport' => 1,
+            'disableeditsection' => 1,
+            'disabletoc' => 1
+        ]);
 
-        if ($response->getStatusCode() !== 200) {
-            throw new \RuntimeException('API returned ' . $response->getStatusCode() . ' status code');
-        }
-        $result = json_decode($response->getContent());
-
-        return $result->parse->text->{'*'};
+        return $response->parse->text->{'*'};
     }
 
     public function getPageByName(string $name): string
     {
-        $response = $this->client->request('GET', $this->host, ['query' => [
-                'action' => 'parse',
-                'format' => 'json',
-                'page' => $name,
-                'prop' => 'text',
-                'disablelimitreport' => 1,
-                'disableeditsection' => 1,
-                'disabletoc' => 1
-        ]]);
+        $response = $this->sendQuery([
+            'action' => 'parse',
+            'format' => 'json',
+            'page' => $name,
+            'prop' => 'text',
+            'disablelimitreport' => 1,
+            'disableeditsection' => 1,
+            'disabletoc' => 1
+        ]);
+
+        return $response->parse->text->{'*'};
+    }
+
+    protected function sendQuery(array $query): \stdClass
+    {
+        $response = $this->client->request('GET', $this->host, ['query' => $query]);
 
         if ($response->getStatusCode() !== 200) {
             throw new \RuntimeException('API returned ' . $response->getStatusCode() . ' status code');
         }
-        $result = json_decode($response->getContent());
 
-        return $result->parse->text->{'*'};
+        return json_decode($response->getContent());
     }
 
 }
