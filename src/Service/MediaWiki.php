@@ -34,25 +34,20 @@ class MediaWiki
 
     public function getPage(int $id): string
     {
-        $response = $this->sendQuery([
-            'action' => 'parse',
-            'format' => 'json',
-            'pageid' => $id,
-            'prop' => 'text',
-            'disablelimitreport' => 1,
-            'disableeditsection' => 1,
-            'disabletoc' => 1
-        ]);
-
-        return $response->parse->text->{'*'};
+        return $this->getPageBy('pageid', $id);
     }
 
     public function getPageByName(string $name): string
     {
+        return $this->getPageBy('page', $name);
+    }
+
+    protected function getPageBy(string $field, string $value): string
+    {
         $response = $this->sendQuery([
             'action' => 'parse',
             'format' => 'json',
-            'page' => $name,
+            $field => $value,
             'prop' => 'text',
             'disablelimitreport' => 1,
             'disableeditsection' => 1,
@@ -67,7 +62,7 @@ class MediaWiki
         $response = $this->client->request('GET', $this->host, ['query' => $query]);
 
         if ($response->getStatusCode() !== 200) {
-            throw new \RuntimeException('API returned ' . $response->getStatusCode() . ' status code');
+            throw new \UnexpectedValueException('API returned ' . $response->getStatusCode() . ' status code');
         }
 
         return json_decode($response->getContent());
