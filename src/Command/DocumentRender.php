@@ -23,21 +23,21 @@ class DocumentRender extends Command
     {
         $this->setDescription('Render a twig')
             ->addArgument('host', InputArgument::REQUIRED)
-            ->addArgument('html', InputArgument::REQUIRED);
+            ->addArgument('template', InputArgument::REQUIRED);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $repository = new MediaWiki(HttpClient::create(), $input->getArgument('host'));
         $io = new SymfonyStyle($input, $output);
-        $target = $input->getArgument('html');
+        $template = $input->getArgument('template');
         $filesystem = new Filesystem();
 
-        $loader = new FilesystemLoader(__DIR__ . '/../template');
+        $loader = new FilesystemLoader(__DIR__ . '/../../template');
         $twig = new Environment($loader);
         $twig->addExtension(new MediaWikiExtension($repository));
 
-        $filesystem->dumpFile($target, $twig->render('index.html.twig'));
+        $filesystem->dumpFile($template . '.html', $twig->render($template . '.html.twig', ['titre' => $template]));
 
         return 0;
     }
