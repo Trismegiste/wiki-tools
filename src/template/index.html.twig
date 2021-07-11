@@ -37,7 +37,7 @@
             h3 {
                 font-weight: normal;
                 font-style: italic;
-                margin-bottom: -0.4em;
+                margin-bottom: -0.3em;
             }
 
             /* box align */
@@ -160,6 +160,7 @@
                 }
                 article {
                     break-inside: avoid;
+                    vertical-align: baseline;
                 }
             }     
         </style>       
@@ -167,7 +168,11 @@
     <body>
         <h1 class="big-title">Eclipse Savage</h1>
         {{ dump_page('Pitch Eclipse Phase')}}
-        {{ dump_page('Création de PJ')}}
+        <section>
+            <h1 class="h0">Commencement</h1>
+            {{ dump_page('Cadre de jeu')}}
+            {{ dump_page('Création de PJ')}}
+        </section>
         <section>
             <h1 class="h0">Historiques</h1>
             {{ dump_category('Historique', 30) }}
@@ -179,6 +184,17 @@
         <section>
             <h1 class="h0">Motivations</h1>
             {{ dump_category('Motivation', 10) }}
+        </section>       
+        <section>
+            <h1 class="h0">Réseaux sociaux</h1>
+            {{ dump_page('Réseaux sociaux')}}
+            {{ dump_page('Cercle-A')}}
+            {{ dump_page('CivicNet')}}
+            {{ dump_page('Fame')}}
+            {{ dump_page('Guanxi')}}
+            {{ dump_page('L\'Œil')}}
+            {{ dump_page('Réseaux de Recherche Associés')}}
+            {{ dump_page('EXploreNet')}}
         </section>            
         <section>
             <h1 class="h0">Handicaps</h1>
@@ -215,7 +231,7 @@
         <h1 class="h0">Touches finales</h1>    
         Il reste à choisir les Traits de votre Muse.
         {{ dump_page('IA limitée')}}        
-        {{ dump_page('Muse')}}        
+        {{ dump_page('Muse')}}    
         <script>
             var img = document.getElementsByClassName('lazyload')
             for (var i = 0; i < img.length; i++) {
