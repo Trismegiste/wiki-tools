@@ -1,4 +1,22 @@
 {% extends "base.html.twig" %}
-{% block body %}     
-    {{ dump_category('Campagne', 40) }}
+{% block body %}
+    {{ dump_page('Pitch Eclipse Phase')}}
+    <h1 class="h0">Cadre de campagne</h1>   
+    {{ dump_page('Cadre de jeu')}}
+    {{ dump_page('The D is silent')}}
+    {{ dump_page('Le Grand Tour')}}
+    {{ dump_page('One-Ai-Jack')}}
+    <h1 class="h0">Personnages-joueurs prétirés</h1>
+    Choisissez un des personnages du Conseil des Communautés pour la béta-test.
+    {{ dump_page('Conseil des Communautés')}}   
+    {{ dump_page('Alice Blue')}}
+    {{ dump_page('Sven Benetti')}}
+    {{ dump_page('Tisha Kaminski')}}
+    {{ dump_page('Trevor Chang')}}
+    {{ dump_page('Holly Tiberun')}}
+    {{ dump_page('Kurt Johnstone')}}
+    {{ dump_page('Drek Millers')}}
+    {{ dump_page('Mjölnir')}}
+    {{ dump_page('Hitomi Elias')}}
+    {{ dump_page('5h4nn0n')}}
 {% endblock %}
