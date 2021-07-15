@@ -68,4 +68,16 @@ class MediaWiki
         return json_decode($response->getContent());
     }
 
+    public function getWikitextByName(string $name): string
+    {
+        $response = $this->sendQuery([
+            'action' => 'parse',
+            'format' => 'json',
+            'page' => $name,
+            'prop' => 'wikitext'
+        ]);
+
+        return $response->parse->wikitext->{'*'};
+    }
+
 }

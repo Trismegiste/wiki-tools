@@ -12,5 +12,6 @@ $application = new Application();
 $application->add(new App\Command\CategoryConcat());
 $application->add(new App\Command\CategoryList());
 $application->add(new App\Command\DocumentRender());
+$application->add(new App\Command\CategoryCompil());
 
 $application->run();
