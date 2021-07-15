@@ -1,0 +1,15 @@
+<html>
+    <body>
+        <table>
+            <tr><td>nom</td><td>type</td><td>pc</td><td>cb</td><td>prix</td></tr>
+            {% for morphe in listing %}
+                <tr>
+                    <td>{{ morphe.title }}</td>
+                    <td>{{ morphe.type }}</td>
+                    <td>{{ morphe.pc }}</td>
+                    <td>{{ morphe.cbrain }}</td>
+                    <td>{{ morphe.cout }}</td>
+                </tr>
+            {% endfor %}
+    </body>
+</html>
