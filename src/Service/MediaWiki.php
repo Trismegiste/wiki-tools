@@ -97,4 +97,19 @@ class MediaWiki
         return array_keys(get_object_vars($templateData->params));
     }
 
+    public function renderTemplate(string $templateName, string $title, array $parameters): string
+    {
+        $response = $this->sendQuery([
+            'action' => 'parse',
+            'format' => 'json',
+            'title' => $title,
+            'text' => '{{Modèle:' . $templateName . '}}',
+            'disablelimitreport' => 1,
+            'disableeditsection' => 1,
+            'disabletoc' => 1
+        ]);
+
+        return $response->parse->text->{'*'};
+    }
+
 }

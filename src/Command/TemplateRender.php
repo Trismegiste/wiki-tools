@@ -42,8 +42,9 @@ class TemplateRender extends Command
         $params = $repository->getTemplateData($template);
 
         $io->title($template);
+        $values = [];
         foreach ($params as $key) {
-            $io->ask("Value for $key");
+            $values[$key] = $io->ask("Value for $key");
         }
 
         return 0;
