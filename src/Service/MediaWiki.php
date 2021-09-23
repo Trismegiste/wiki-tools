@@ -80,4 +80,21 @@ class MediaWiki
         return $response->parse->wikitext->{'*'};
     }
 
+    public function getTemplateData(string $templateName): array
+    {
+        $res = $this->sendQuery([
+            'action' => 'templatedata',
+            'format' => 'json',
+            'titles' => 'Modèle:' . $templateName
+        ]);
+
+        $templateKey = array_key_first(get_object_vars($res->pages));
+        $templateData = $res->pages->$templateKey;
+        if ($templateData->title !== 'Modèle:' . $templateName) {
+            throw new RuntimeException('Something went wrong');
+        }
+
+        return array_keys(get_object_vars($templateData->params));
+    }
+
 }
