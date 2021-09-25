@@ -48,7 +48,13 @@ class TemplateRender extends Command
                 property_exists($info->description, 'fr')) {
                 $io->block($info->description->fr);
             }
-            $values[$key] = $io->ask("Value for $key");
+
+            $default = null;
+            if (!is_null($info->default) &&
+                property_exists($info->default, 'fr')) {
+                $default = $info->default->fr;
+            }
+            $values[$key] = $io->ask("Value for $key", $default);
         }
 
         $filesystem->dumpFile($title . '.html', $twig->render('WikiTemplateWrapper.html.twig', [

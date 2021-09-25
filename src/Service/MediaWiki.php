@@ -99,11 +99,15 @@ class MediaWiki
 
     public function renderTemplate(string $templateName, string $title, array $parameters): string
     {
+        $compil = '';
+        foreach ($parameters as $k => $v) {
+            $compil .= "|$k=$v";
+        }
         $response = $this->sendQuery([
             'action' => 'parse',
             'format' => 'json',
             'title' => $title,
-            'text' => '{{Modèle:' . $templateName . '}}',
+            'text' => '{{Modèle:' . $templateName . $compil . '}}',
             'disablelimitreport' => 1,
             'disableeditsection' => 1,
             'disabletoc' => 1
