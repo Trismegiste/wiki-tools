@@ -94,7 +94,7 @@ class MediaWiki
             throw new RuntimeException('Something went wrong');
         }
 
-        return array_keys(get_object_vars($templateData->params));
+        return get_object_vars($templateData->params);
     }
 
     public function renderTemplate(string $templateName, string $title, array $parameters): string

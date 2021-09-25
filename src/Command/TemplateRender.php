@@ -37,15 +37,24 @@ class TemplateRender extends Command
         $twig = new Environment($loader);
         $twig->addExtension(new MediaWikiExtension($repository));
 
-        //    $filesystem->dumpFile($template . '.html', $twig->render($template . '.html.twig', ['titre' => $template]));
+        $io->title('Generating ' . $template);
+        $title = $io->ask('A title for ' . $template, $template);
 
+        // parameters
         $params = $repository->getTemplateData($template);
-
-        $io->title($template);
         $values = [];
-        foreach ($params as $key) {
+        foreach ($params as $key => $info) {
+            if (!is_null($info->description) &&
+                property_exists($info->description, 'fr')) {
+                $io->block($info->description->fr);
+            }
             $values[$key] = $io->ask("Value for $key");
         }
+
+        $filesystem->dumpFile($title . '.html', $twig->render('WikiTemplateWrapper.html.twig', [
+                'titre' => $title,
+                'content' => $repository->renderTemplate($template, $title, $values)
+        ]));
 
         return 0;
     }
